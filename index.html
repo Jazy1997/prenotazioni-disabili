@@ -429,6 +429,12 @@ Per modificare una prenotazione già fatta contattare l'indirizzo email: cazzaro
     // Quando cambia la mobilità, carica le date disponibili
     selectMobilita.addEventListener('change', async () => {
       const mobilita = selectMobilita.value;
+
+      // === DEBUG ===
+      console.log('🔍 Mobilità selezionata:', mobilita);
+      console.log('🔍 Valore raw:', selectMobilita.value);
+      console.log('🔍 URL finale:', `${ENDPOINT_DISPONIBILITA}?mobilita=${encodeURIComponent(mobilita)}`);
+      // === FINE DEBUG ===
       
       if (!mobilita) {
         selectData.disabled = true;
