@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prenotazione Disabili - Angelo Pintus 2026</title>
+  <style>
+    :root {
+      --font-family: 'Inter', 'Open Sans', sans-serif;
+      --font-weight-normal: 400;
+      --font-weight-bold: 600;
+      
+      /* Palette Colori Caldi (Castagna / Marrone Moderno) */
+      --color-background: #fdfaf7;
+      --color-card-bg: #ffffff;
+      --color-card-border: #e9e0d6;
+      --color-card-shadow: rgba(62, 39, 35, 0.08);
+      
+      --color-header: #3e2723;
+      --color-header-subtext: #8d6e63;
+      --color-label: #5d4037;
+      --color-input-text: #4e342e;
+      
+      --color-input-border: #d7ccc8;
+      --color-focus-border: #8d6e63;
+      
+      --color-submit-btn-bg: #795548;
+      --color-submit-btn-text: #ffffff;
+      --color-html-link: #a1887f;
+      
+      --color-required: #d84315;
+      --color-error: #bf360c;
+      --color-success: #2e7d32;
+      
+      --border-radius-card: 16px;
+      --border-radius-input: 10px;
+      --card-border-radius: 16px;
+
+      --container-width: 480px;
+      --submit-btn-height: 52px;
+      --padding-card: 40px;
+      --box-shadow-card: 0px 10px 30px 0px var(--color-card-shadow);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-family);
+      background-color: var(--color-background);
+      color: var(--color-input-text);
+      line-height: 1.6;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: var(--container-width);
+      margin: 0 auto;
+      background: var(--color-card-bg);
+      padding: var(--padding-card);
+      border-radius: var(--border-radius-card);
+      border: 1px solid var(--color-card-border);
+      box-shadow: var(--box-shadow-card);
+    }
+
+    h1 {
+      color: var(--color-header);
+      font-size: 24px;
+      font-weight: var(--font-weight-bold);
+      margin-bottom: 10px;
+    }
+
+    .description {
+      color: var(--color-header-subtext);
+      font-size: 14px;
+      margin-bottom: 30px;
+      line-height: 1.5;
+      white-space: pre-line;
+    }
+
+    .form-group {
+      margin-bottom: 24px;
+    }
+
+    label {
+      display: block;
+      color: var(--color-label);
+      font-weight: var(--font-weight-bold);
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    label .required {
+      color: var(--color-required);
+      margin-left: 2px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid var(--color-input-border);
+      border-radius: var(--border-radius-input);
+      font-size: 14px;
+      font-family: var(--font-family);
+      color: var(--color-input-text);
+      background-color: #ffffff;
+      transition: all 0.2s ease;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--color-focus-border);
+      background-color: #fffbf9;
+      box-shadow: 0 0 0 3px rgba(141, 110, 99, 0.1);
+    }
+
+    select:disabled {
+      background-color: #f5f5f5;
+      color: #999;
+      cursor: not-allowed;
+    }
+
+    select option:disabled {
+      color: var(--color-error);
+      font-style: italic;
+    }
+
+    .file-upload {
+      position: relative;
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    .file-label {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: var(--color-input-border);
+      color: var(--color-label);
+      border-radius: var(--border-radius-input);
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.2s ease;
+    }
+
+    .file-label:hover {
+      background-color: var(--color-focus-border);
+      color: white;
+    }
+
+    .file-name {
+      display: block;
+      margin-top: 8px;
+      font-size: 12px;
+      color: var(--color-header-subtext);
+    }
+
+    button[type="submit"] {
+      width: 100%;
+      height: var(--submit-btn-height);
+      background-color: var(--color-submit-btn-bg);
+      color: var(--color-submit-btn-text);
+      border: none;
+      border-radius: var(--border-radius-input);
+      font-size: 16px;
+      font-weight: var(--font-weight-bold);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      margin-top: 30px;
+    }
+
+    button[type="submit"]:hover:not(:disabled) {
+      filter: brightness(1.1);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(121, 85, 72, 0.3);
+    }
+
+    button[type="submit"]:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .loading {
+      display: none;
+      text-align: center;
+      padding: 20px;
+      color: var(--color-header-subtext);
+    }
+
+    .loading.active {
+      display: block;
+    }
+
+    .spinner {
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid var(--color-submit-btn-bg);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 10px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .alert {
+      padding: 16px;
+      border-radius: var(--border-radius-input);
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+
+    .alert.success {
+      background-color: #e8f5e9;
+      color: var(--color-success);
+      border: 1px solid var(--color-success);
+    }
+
+    .alert.error {
+      background-color: #ffebee;
+      color: var(--color-error);
+      border: 1px solid var(--color-error);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 24px;
+      }
+
+      h1 {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Angelo Pintus 2026 - Prenotazione Disabili</h1>
+    <p class="description">Benvenuto/a!
+Compila il modulo per richiedere la tua prenotazione. Assicurati di avere a disposizione il certificato di invalidità e il modulo ricevuto via email. Ti contatteremo al più presto per confermare la prenotazione.
+
+Per modificare una prenotazione già fatta contattare l'indirizzo email: cazzarogiacomo97@gmail.com </p>
+
+    <div id="alertContainer"></div>
+
+    <form id="prenotazioneForm">
+      <!-- Dati Disabile -->
+      <div class="form-group">
+        <label for="nomeDisabile">
+          Nome del disabile (sarà il nominativo della prenotazione)
+          <span class="required">*</span>
+        </label>
+        <input type="text" id="nomeDisabile" name="nomeDisabile" placeholder="Nome" required>
+      </div>
+
+      <div class="form-group">
+        <label for="cognomeDisabile">
+          Cognome del disabile (sarà il nominativo della prenotazione)
+          <span class="required">*</span>
+        </label>
+        <input type="text" id="cognomeDisabile" name="cognomeDisabile" placeholder="Cognome" required>
+      </div>
+
+      <!-- Dati Riferimento -->
+      <div class="form-group">
+        <label for="nomeRiferimento">
+          Nome di riferimento
+          <span class="required">*</span>
+        </label>
+        <input type="text" id="nomeRiferimento" name="nomeRiferimento" placeholder="Nome di riferimento" required>
+      </div>
+
+      <div class="form-group">
+        <label for="cognomeRiferimento">
+          Cognome di riferimento
+          <span class="required">*</span>
+        </label>
+        <input type="text" id="cognomeRiferimento" name="cognomeRiferimento" placeholder="Cognome di riferimento" required>
+      </div>
+
+      <div class="form-group">
+        <label for="emailRiferimento">
+          Email di riferimento
+          <span class="required">*</span>
+        </label>
+        <input type="email" id="emailRiferimento" name="emailRiferimento" placeholder="indirizzoemail@me.it" required>
+      </div>
+
+      <div class="form-group">
+        <label for="telefono">
+          Telefono
+          <span class="required">*</span>
+        </label>
+        <input type="tel" id="telefono" name="telefono" placeholder="+39 123 456 7890" required>
+      </div>
+
+      <!-- Mobilità (determina quali date vedere) -->
+      <div class="form-group">
+        <label for="mobilita">
+          Mobilità
+          <span class="required">*</span>
+        </label>
+        <select id="mobilita" name="mobilita" required>
+          <option value="">-- Seleziona --</option>
+          <option value="Deambulante">Deambulante</option>
+          <option value="Non Deambulante">Non Deambulante (carrozzina/dispositivi)</option>
+        </select>
+      </div>
+
+      <!-- Data Spettacolo (popolata dinamicamente) -->
+      <div class="form-group">
+        <label for="dataSpettacolo">
+          Data Spettacolo
+          <span class="required">*</span>
+        </label>
+        <select id="dataSpettacolo" name="dataSpettacolo" required disabled>
+          <option value="">-- Seleziona prima la mobilità --</option>
+        </select>
+      </div>
+
+      <!-- Upload File -->
+      <div class="form-group">
+        <label>
+          Certificato Invalidità (.pdf, .jpg, .jpeg, .png)
+          <span class="required">*</span>
+        </label>
+        <div class="file-upload">
+          <label for="certificatoInvalidita" class="file-label">📎 Scegli file</label>
+          <input type="file" id="certificatoInvalidita" name="certificatoInvalidita" 
+                 accept=".pdf,.jpg,.jpeg,.png" required>
+          <span class="file-name" id="certificatoName">Nessun file selezionato</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>
+          Modulo Compilato (.pdf, .jpg, .jpeg, .png)
+          <span class="required">*</span>
+        </label>
+        <div class="file-upload">
+          <label for="moduloCompilato" class="file-label">📎 Scegli file</label>
+          <input type="file" id="moduloCompilato" name="moduloCompilato" 
+                 accept=".pdf,.jpg,.jpeg,.png" required>
+          <span class="file-name" id="moduloName">Nessun file selezionato</span>
+        </div>
+      </div>
+
+      <!-- Altri campi -->
+      <div class="form-group">
+        <label for="percentualeInvalidita">
+          Percentuale Invalidità
+          <span class="required">*</span>
+        </label>
+        <select id="percentualeInvalidita" name="percentualeInvalidita" required>
+          <option value="">-- Seleziona --</option>
+          <option value="Inferiore al 75%">Inferiore al 75%</option>
+          <option value="75% o superiore">75% o superiore</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="eta">
+          Età
+          <span class="required">*</span>
+        </label>
+        <select id="eta" name="eta" required>
+          <option value="">-- Seleziona --</option>
+          <option value="Maggiorenne">Maggiorenne</option>
+          <option value="Minorenne">Minorenne</option>
+        </select>
+      </div>
+
+      <div class="loading" id="loadingIndicator">
+        <div class="spinner"></div>
+        <p>Elaborazione in corso...</p>
+      </div>
+
+      <button type="submit" id="submitBtn">Invia Prenotazione</button>
+    </form>
+  </div>
+
+  <script>
+    // ⚙️ CONFIGURAZIONE - Modifica questi URL dopo aver deployato n8n
+    const N8N_BASE_URL = 'https://jazy97.app.n8n.cloud/webhook-test';
+    const ENDPOINT_DISPONIBILITA = `${N8N_BASE_URL}/disponibilita-disabili`;
+    const ENDPOINT_PRENOTA = `${N8N_BASE_URL}/prenota-disabili`;
+
+    // Elementi DOM
+    const form = document.getElementById('prenotazioneForm');
+    const selectMobilita = document.getElementById('mobilita');
+    const selectData = document.getElementById('dataSpettacolo');
+    const submitBtn = document.getElementById('submitBtn');
+    const loadingIndicator = document.getElementById('loadingIndicator');
+    const alertContainer = document.getElementById('alertContainer');
+
+    // File inputs
+    const certificatoInput = document.getElementById('certificatoInvalidita');
+    const moduloInput = document.getElementById('moduloCompilato');
+
+    // Mostra nome file selezionato
+    certificatoInput.addEventListener('change', (e) => {
+      const fileName = e.target.files[0]?.name || 'Nessun file selezionato';
+      document.getElementById('certificatoName').textContent = fileName;
+    });
+
+    moduloInput.addEventListener('change', (e) => {
+      const fileName = e.target.files[0]?.name || 'Nessun file selezionato';
+      document.getElementById('moduloName').textContent = fileName;
+    });
+
+    // Quando cambia la mobilità, carica le date disponibili
+    selectMobilita.addEventListener('change', async () => {
+      const mobilita = selectMobilita.value;
+      
+      if (!mobilita) {
+        selectData.disabled = true;
+        selectData.innerHTML = '<option value="">-- Seleziona prima la mobilità --</option>';
+        return;
+      }
+
+      selectData.disabled = true;
+      selectData.innerHTML = '<option value="">Caricamento date disponibili...</option>';
+      
+      try {
+        const response = await fetch(
+          `${ENDPOINT_DISPONIBILITA}?mobilita=${encodeURIComponent(mobilita)}`
+        );
+        
+        if (!response.ok) {
+          throw new Error('Errore nel caricamento delle date');
+        }
+
+        const data = await response.json();
+        
+        selectData.innerHTML = '<option value="">-- Seleziona data --</option>';
+        
+        data.disponibilita.forEach(slot => {
+          const option = document.createElement('option');
+          option.value = slot.value;
+          option.textContent = slot.label;
+          
+          if (!slot.disponibile) {
+            option.disabled = true;
+            option.style.color = '#bf360c';
+            option.style.fontStyle = 'italic';
+          }
+          
+          selectData.appendChild(option);
+        });
+        
+        selectData.disabled = false;
+        
+      } catch (error) {
+        console.error('Errore:', error);
+        selectData.innerHTML = '<option value="">Errore caricamento - riprova</option>';
+        showAlert('Errore nel caricamento delle date disponibili. Riprova.', 'error');
+      }
+    });
+
+    // Funzione per convertire file in Base64
+    function fileToBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
+    // Funzione per mostrare alert
+    function showAlert(message, type = 'error') {
+      alertContainer.innerHTML = `
+        <div class="alert ${type}">
+          ${message}
+        </div>
+      `;
+      
+      // Auto-hide dopo 5 secondi per successo
+      if (type === 'success') {
+        setTimeout(() => {
+          alertContainer.innerHTML = '';
+        }, 5000);
+      }
+    }
+
+    // Submit form
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      submitBtn.disabled = true;
+      loadingIndicator.classList.add('active');
+      alertContainer.innerHTML = '';
+
+      try {
+        // Converti file in Base64
+        const certificatoBase64 = await fileToBase64(certificatoInput.files[0]);
+        const moduloBase64 = await fileToBase64(moduloInput.files[0]);
+
+        const payload = {
+          nomeDisabile: document.getElementById('nomeDisabile').value,
+          cognomeDisabile: document.getElementById('cognomeDisabile').value,
+          nomeRiferimento: document.getElementById('nomeRiferimento').value,
+          cognomeRiferimento: document.getElementById('cognomeRiferimento').value,
+          emailRiferimento: document.getElementById('emailRiferimento').value,
+          telefono: document.getElementById('telefono').value,
+          dataSpettacolo: document.getElementById('dataSpettacolo').value,
+          mobilita: document.getElementById('mobilita').value,
+          percentualeInvalidita: document.getElementById('percentualeInvalidita').value,
+          eta: document.getElementById('eta').value,
+          certificatoInvalidita: certificatoBase64,
+          moduloCompilato: moduloBase64,
+          requestId: `REQ-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+          timestamp: new Date().toISOString()
+        };
+
+        const response = await fetch(ENDPOINT_PRENOTA, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+          showAlert(
+            '✅ Prenotazione inviata con successo! Riceverai una email di conferma.',
+            'success'
+          );
+          form.reset();
+          selectData.disabled = true;
+          selectData.innerHTML = '<option value="">-- Seleziona prima la mobilità --</option>';
+          document.getElementById('certificatoName').textContent = 'Nessun file selezionato';
+          document.getElementById('moduloName').textContent = 'Nessun file selezionato';
+        } else {
+          showAlert(
+            `❌ ${result.message || 'Errore nella prenotazione. Riprova o contatta l\'assistenza.'}`,
+            'error'
+          );
+        }
+
+      } catch (error) {
+        console.error('Errore:', error);
+        showAlert(
+          '❌ Errore di connessione. Verifica la tua connessione e riprova.',
+          'error'
+        );
+      } finally {
+        submitBtn.disabled = false;
+        loadingIndicator.classList.remove('active');
+      }
+    });
+  </script>
+</body>
+</html>
